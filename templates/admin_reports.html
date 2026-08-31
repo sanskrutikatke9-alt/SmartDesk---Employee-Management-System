@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports Management | SmartDesk</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/employees.css') }}">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- ================= Sidebar ================= -->
+
+<aside class="sidebar">
+
+        <div class="logo">
+
+            <img src="{{ url_for('static', filename='img/logo3.jpg') }}"
+                 alt="SmartDesk Logo">
+
+            <h3>SmartDesk</h3>
+
+        </div>
+
+
+        <ul class="menu">
+
+            <li>
+                <a href="{{ url_for('admin_dashboard') }}">
+                    <i class="bi bi-grid-fill"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('employees')}}">
+                    <i class="bi bi-people-fill"></i>
+                    <span>Employees</span>
+                </a>
+            </li>
+
+
+            <li>
+                <a href="{{ url_for('admin_attendance') }}">
+                    <i class="bi bi-calendar-check-fill"></i>
+                    <span>Attendance</span>
+                </a>
+            </li>
+
+
+             <li>
+                <a href="{{ url_for('admin_leave') }}">
+                    <i class="bi bi-file-earmark-text-fill"></i>
+                    <span>Leave Requests</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('admin_tasks') }}">
+                    <i class="bi bi-list-task"></i>
+                    <span>Tasks</span>
+                </a>
+            </li>
+
+            <li class="active">
+                <a href="{{ url_for('admin_reports') }}">
+                    <i class="bi bi-bar-chart-fill"></i>
+                    <span>Reports</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('admin_profile') }}">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('logout') }}">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+
+
+</aside>
+
+    <!-- ================= Main Content ================= -->
+
+    <div class="main-content">
+<!-- ================= Top Navbar ================= -->
+
+<nav class="topbar">
+
+    <div>
+
+        <h2>Reports Management</h2>
+
+        <p>View and monitor employee task and weekly reports.</p>
+
+    </div>
+
+    <div class="top-right">
+
+
+        <div class="profile">
+
+           <img src="{{ url_for('static', filename='img/adminicon.jpg') }}"
+                             alt="Profile">
+            <div>
+                <h6>Kanak Thakur</h6>
+                <small>Administrator</small>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- ================= Page Header ================= -->
+
+<div class="page-header">
+
+    <div>
+
+        <h3>Employee Reports</h3>
+
+        <p>Manage task reports and weekly reports submitted by employees.</p>
+
+    </div>
+
+</div>
+
+<!-- ================= Task Reports ================= -->
+
+<div class="table-box mt-5">
+
+    <div class="table-header">
+
+        <h4>Task Reports</h4>
+
+        <span class="badge bg-primary">
+            {{ task_reports|length }} Reports
+        </span>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle" id="taskReportTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>Employee ID</th>
+
+                    <th>Employee</th>
+
+                    <th>Task</th>
+
+                    <th>Hours</th>
+
+                    <th>Submitted On</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for report in task_reports %}
+
+                <tr>
+
+                    <td>{{ report.employee_id }}</td>
+
+                    <td>{{ report.name }}</td>
+
+                    <td>{{ report.title }}</td>
+
+                    <td>{{ report.hours_worked }}</td>
+
+                    <td>{{ report.submitted_on }}</td>
+
+                    <td>
+
+                        <button
+                            class="btn btn-outline-primary btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#taskReportModal{{ report.id }}">
+
+                            <i class="bi bi-eye-fill"></i>
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+<!-- ================= Weekly Reports ================= -->
+
+<div class="table-box mt-5">
+
+    <div class="table-header">
+
+        <h4>Weekly Reports</h4>
+
+        <span class="badge bg-success">
+            {{ weekly_reports|length }} Reports
+        </span>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle" id="weeklyReportTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>Employee ID</th>
+
+                    <th>Employee</th>
+
+                    <th>Week</th>
+
+                    <th>Submitted On</th>
+
+                    <th>Status</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for report in weekly_reports %}
+
+                <tr>
+
+                    <td>{{ report.employee_id }}</td>
+
+                    <td>{{ report.name }}</td>
+
+                    <td>
+                        {{ report.week_start }}
+                        <br>
+                        <small class="text-muted">
+                            to {{ report.week_end }}
+                        </small>
+                    </td>
+
+                    <td>{{ report.submitted_on }}</td>
+
+                    <td>
+
+                        {% if report.status == "Approved" %}
+
+                        <span class="badge bg-success">
+                            Approved
+                        </span>
+
+                        {% elif report.status == "Rejected" %}
+
+                        <span class="badge bg-danger">
+                            Rejected
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-warning text-dark">
+                            Pending
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="btn btn-outline-success btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#weeklyReportModal{{ report.id }}">
+
+                            <i class="bi bi-eye-fill"></i>
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+<!-- ================= Task Report Modals ================= -->
+
+{% for report in task_reports %}
+
+<div class="modal fade"
+     id="taskReportModal{{ report.id }}"
+     tabindex="-1">
+
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h4 class="modal-title">
+                    Task Report Details
+                </h4>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Employee
+                        </label>
+
+                        <p>{{ report.name }}</p>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Employee ID
+                        </label>
+
+                        <p>{{ report.employee_id }}</p>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Task
+                        </label>
+
+                        <p>{{ report.title }}</p>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Hours Worked
+                        </label>
+
+                        <p>{{ report.hours_worked }}</p>
+
+                    </div>
+
+                    <div class="col-12">
+
+                        <label class="form-label fw-bold">
+                            Work Done
+                        </label>
+
+                        <textarea class="form-control"
+                                  rows="6"
+                                  readonly>{{ report.work_done }}</textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                    Close
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+
+
+<!-- ================= Weekly Report Modals ================= -->
+
+{% for report in weekly_reports %}
+
+<div class="modal fade"
+     id="weeklyReportModal{{ report.id }}"
+     tabindex="-1">
+
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h4 class="modal-title">
+                    Weekly Report Details
+                </h4>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Employee
+                        </label>
+
+                        <p>{{ report.name }}</p>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Employee ID
+                        </label>
+
+                        <p>{{ report.employee_id }}</p>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Week Start
+                        </label>
+
+                        <p>{{ report.week_start }}</p>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            Week End
+                        </label>
+
+                        <p>{{ report.week_end }}</p>
+
+                    </div>
+
+                    <div class="col-12">
+
+                        <label class="form-label fw-bold">
+                            Work Summary
+                        </label>
+
+                        <textarea class="form-control"
+                                  rows="6"
+                                  readonly>{{ report.work_summary }}</textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                    Close
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+<!-- ================= Report Actions ================= -->
+
+<div class="table-box mt-5">
+
+    <div class="table-header">
+
+        <h4>Report Actions</h4>
+
+        <p class="text-muted mb-0">
+            Approve or reject employee reports.
+        </p>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Employee</th>
+
+                    <th>Report Type</th>
+
+                    <th>Status</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for report in weekly_reports %}
+
+                <tr>
+
+                    <td>{{ report.name }}</td>
+
+                    <td>Weekly Report</td>
+
+                    <td>
+
+                        {% if report.status == "Approved" %}
+                            <span class="badge bg-success">Approved</span>
+                        {% elif report.status == "Rejected" %}
+                            <span class="badge bg-danger">Rejected</span>
+                        {% else %}
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <a href="{{ url_for('approve_weekly_report', id=report.id) }}"
+                           class="btn btn-success btn-sm">
+
+                            <i class="bi bi-check-circle-fill"></i>
+
+                        </a>
+
+                        <a href="{{ url_for('reject_weekly_report', id=report.id) }}"
+                           class="btn btn-danger btn-sm">
+
+                            <i class="bi bi-x-circle-fill"></i>
+
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- ================= Footer ================= -->
+
+<footer class="footer mt-5">
+
+    <p>
+
+        © 2026 SmartDesk |
+        Employee Reports Management System
+
+    </p>
+
+</footer>
+</div>
+    <!-- End Main Content -->
+
+</div>
+<!-- End Wrapper -->
+
+<!-- Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Dashboard JS -->
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+</body>
+</html>

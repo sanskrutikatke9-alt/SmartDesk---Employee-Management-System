@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartDesk | Admin Dashboard</title>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+   <aside class="sidebar">
+
+        <div class="logo">
+
+            <img src="{{ url_for('static', filename='img/logo3.jpg') }}"
+                 alt="SmartDesk Logo">
+
+            <h3>SmartDesk</h3>
+
+        </div>
+
+
+        <ul class="menu">
+
+            <li class="active">
+                <a href="{{ url_for('admin_dashboard') }}">
+                    <i class="bi bi-grid-fill"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('employees')}}">
+                    <i class="bi bi-people-fill"></i>
+                    <span>Employees</span>
+                </a>
+            </li>
+
+
+            <li>
+                <a href="{{ url_for('admin_attendance') }}">
+                    <i class="bi bi-calendar-check-fill"></i>
+                    <span>Attendance</span>
+                </a>
+            </li>
+
+
+             <li>
+                <a href="{{ url_for('admin_leave') }}">
+                    <i class="bi bi-file-earmark-text-fill"></i>
+                    <span>Leave Requests</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('admin_tasks') }}">
+                    <i class="bi bi-list-task"></i>
+                    <span>Tasks</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('admin_reports') }}">
+                    <i class="bi bi-bar-chart-fill"></i>
+                    <span>Reports</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('admin_profile') }}">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('logout') }}">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+
+        </ul>
+
+
+</aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOP HEADER
+        ================================================== -->
+
+        <header class="dashboard-header">
+
+            <div class="header-text">
+
+                <h1>
+                    Good Morning, Kanak
+                    <span class="greeting-emoji">👋</span>
+                </h1>
+
+                <p>
+                    Here's a quick overview of your team's activity.
+                </p>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <!-- Notification -->
+                  <!-- Notification -->
+
+                <div class="notification">
+
+                    <div class="notification-icon" id="notificationBtn">
+
+                        <i class="bi bi-bell-fill"></i>
+
+                        {% if unread_notifications %}
+                        <span class="notification-badge">
+                            {{ unread_notifications }}
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="notification-dropdown"
+                         id="notificationDropdown">
+
+                        <div class="dropdown-header">
+
+                            <h6>Notifications</h6>
+
+                            <small>New</small>
+
+                        </div>
+
+
+                        <div class="notification-item unread">
+
+                            <div class="notification-item-icon">
+                                <i class="bi bi-list-task"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>No new Notifications</strong>
+
+                                <!-- <p>Employee Dashboard UI</p>
+
+                                <small>5 min ago</small> -->
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- <div class="notification-item unread">
+
+                            <div class="notification-item-icon">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>Leave Approved</strong>
+
+                                <p>Your Casual Leave has been approved</p>
+
+                                <small>1 hour ago</small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="notification-item">
+
+                            <div class="notification-item-icon">
+                                <i class="bi bi-file-earmark-text"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>Report Reviewed</strong>
+
+                                <p>Your daily report was reviewed</p>
+
+                                <small>Yesterday</small>
+
+                            </div>
+
+                        </div> -->
+
+                    </div>
+
+                </div>
+
+
+                <!-- Admin Profile -->
+                <div class="admin-profile">
+
+                    <div class="admin-avatar">
+                        <img src="{{ url_for('static', filename='img/adminicon.jpg')  }}"
+                             alt="Profile">
+                    </div>
+
+
+                    <div class="admin-details">
+
+                        <h4>Kanak</h4>
+
+                        <p>Administrator</p>
+
+                    </div>
+
+
+                    <i class="bi bi-chevron-down profile-arrow"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             STAT CARDS
+        ================================================== -->
+
+        <section class="stats-grid">
+
+
+            <!-- Total Employees -->
+            <article class="stat-card">
+
+                <div class="stat-card-top">
+
+                    <div class="stat-icon employees-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+
+
+                    <div class="stat-information">
+
+                        <h5>Total Employees</h5>
+
+                        <div class="stat-number">
+                            {{ total_employees }}
+                        </div>
+
+                        <p>Registered workforce</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card-bottom">
+
+                    <div class="stat-change positive">
+                        <i class="bi bi-arrow-up"></i>
+                        <span>8%</span>
+                    </div>
+
+                    <p>from last month</p>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- Present Today -->
+            <article class="stat-card">
+
+                <div class="stat-card-top">
+
+                    <div class="stat-icon present-icon">
+                        <i class="bi bi-person-check"></i>
+                    </div>
+
+
+                    <div class="stat-information">
+
+                        <h5>Present Today</h5>
+
+                        <div class="stat-number">
+                            {{ present_today }}
+                        </div>
+
+                        <p>Today's attendance</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card-bottom">
+
+                    <div class="stat-change positive">
+                        <i class="bi bi-arrow-up"></i>
+                        <span>12%</span>
+                    </div>
+
+                    <p>from yesterday</p>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- Pending Leaves -->
+            <article class="stat-card">
+
+                <div class="stat-card-top">
+
+                    <div class="stat-icon leave-icon">
+                        <i class="bi bi-calendar-event"></i>
+                    </div>
+
+
+                    <div class="stat-information">
+
+                        <h5>Pending Leaves</h5>
+
+                        <div class="stat-number">
+                            {{ pending_leave }}
+                        </div>
+
+                        <p>Awaiting review</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card-bottom">
+
+                    <div class="stat-change positive">
+                        <i class="bi bi-arrow-up"></i>
+                        <span>3</span>
+                    </div>
+
+                    <p>new requests</p>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- Pending Tasks -->
+            <article class="stat-card">
+
+                <div class="stat-card-top">
+
+                    <div class="stat-icon tasks-icon">
+                        <i class="bi bi-clipboard-check"></i>
+                    </div>
+
+
+                    <div class="stat-information">
+
+                        <h5>Pending Tasks</h5>
+
+                        <div class="stat-number">
+                            {{ pending_tasks }}
+                        </div>
+
+                        <p>Current workload</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card-bottom">
+
+                    <div class="stat-change positive">
+                        <i class="bi bi-arrow-up"></i>
+                        <span>2</span>
+                    </div>
+
+                    <p>from yesterday</p>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PRODUCTIVITY + ANNOUNCEMENTS
+        ================================================== -->
+
+        <section class="dashboard-middle-grid">
+
+
+            <!-- Productivity Overview -->
+            <article class="productivity-card">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>Productivity Overview</h2>
+
+                        <p>
+                            Overview of task progress across the team.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="productivity-content">
+
+
+                    <!-- Donut Chart -->
+                    <div class="donut-section">
+
+                        <div class="donut-chart">
+
+                            <div class="donut-center">
+
+                                <strong>62%</strong>
+
+                                <span>Completed</span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="donut-legend">
+
+                            <div class="legend-item">
+
+                                <span class="legend-dot completed-dot"></span>
+
+                                <div>
+
+                                    <h5>Completed</h5>
+
+                                    <p>62% (42)</p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="legend-item">
+
+                                <span class="legend-dot progress-dot"></span>
+
+                                <div>
+
+                                    <h5>In Progress</h5>
+
+                                    <p>25% (17)</p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="legend-item">
+
+                                <span class="legend-dot pending-dot"></span>
+
+                                <div>
+
+                                    <h5>Pending</h5>
+
+                                    <p>13% (9)</p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!--
+                        DAILY TASK COMPLETION GRAPH
+                        INTENTIONALLY REMOVED
+                    -->
+
+                </div>
+
+            </article>
+            <!-- =================================================
+                 COMPANY ANNOUNCEMENTS
+            ================================================== -->
+
+            <article class="announcements-card">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Company Announcements</h2>
+                    </div>
+
+                    <a href="#" class="view-all-link">
+                        View All
+                    </a>
+
+                </div>
+
+
+                <div class="announcements-list">
+
+
+                    <!-- Team Meeting -->
+                    <div class="announcement-item">
+
+                        <div class="announcement-icon meeting-icon">
+                            <i class="bi bi-calendar-event"></i>
+                        </div>
+
+
+                        <div class="announcement-content">
+
+                            <div class="announcement-title-row">
+
+                                <h3>Team Meeting</h3>
+
+                                <span>10 Aug</span>
+
+                            </div>
+
+                            <p>
+                                Monthly team meeting is scheduled for
+                                Friday at 11:00 AM.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Training Session -->
+                    <div class="announcement-item">
+
+                        <div class="announcement-icon training-icon">
+                            <i class="bi bi-mortarboard-fill"></i>
+                        </div>
+
+
+                        <div class="announcement-content">
+
+                            <div class="announcement-title-row">
+
+                                <h3>Training Session</h3>
+
+                                <span>09 Aug</span>
+
+                            </div>
+
+                            <p>
+                                New training session on Project Management
+                                on 20th August.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Policy Update -->
+                    <div class="announcement-item">
+
+                        <div class="announcement-icon policy-icon">
+                            <i class="bi bi-megaphone-fill"></i>
+                        </div>
+
+
+                        <div class="announcement-content">
+
+                            <div class="announcement-title-row">
+
+                                <h3>Policy Update</h3>
+
+                                <span>08 Aug</span>
+
+                            </div>
+
+                            <p>
+                                Remote work policy has been updated.
+                                Please check the reports section.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- System Maintenance -->
+                    <div class="announcement-item">
+
+                        <div class="announcement-icon maintenance-icon">
+                            <i class="bi bi-info-circle-fill"></i>
+                        </div>
+
+
+                        <div class="announcement-content">
+
+                            <div class="announcement-title-row">
+
+                                <h3>System Maintenance</h3>
+
+                                <span>07 Aug</span>
+
+                            </div>
+
+                            <p>
+                                System will be under maintenance on
+                                18th August from 12 AM to 2 AM.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ADMIN INFORMATION GRID
+        ================================================== -->
+
+        <section class="admin-info-grid">
+
+
+            <!-- =================================================
+                 FOCUS OF THE WEEK
+            ================================================== -->
+
+            <article class="info-card focus-card">
+
+                <div class="info-card-header">
+
+                    <div class="info-card-icon focus-icon">
+                        <i class="bi bi-bullseye"></i>
+                    </div>
+
+                    <div>
+
+                        <span class="info-label">
+                            THIS WEEK
+                        </span>
+
+                        <h2>Focus of the Week</h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-card-body">
+
+                    <p>
+                        Keep task follow-ups consistent and make sure
+                        weekly employee reports stay updated.
+                    </p>
+
+                </div>
+
+
+                <div class="info-card-footer">
+
+                    <span>Weekly priority</span>
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 TEAM HIGHLIGHTS
+            ================================================== -->
+
+            <article class="info-card highlights-card">
+
+                <div class="info-card-header">
+
+                    <div class="info-card-icon highlights-icon">
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+
+                    <div>
+
+                        <span class="info-label">
+                            TEAM HIGHLIGHTS
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="highlight-list">
+
+
+                    <div class="highlight-item">
+
+                        <span class="highlight-dot development-dot"></span>
+
+                        <p>
+                            Development team completed current sprint
+                            activities.
+                        </p>
+
+                    </div>
+
+
+                    <div class="highlight-item">
+
+                        <span class="highlight-dot design-dot"></span>
+
+                        <p>
+                            Design team updated the latest project screens.
+                        </p>
+
+                    </div>
+
+
+                    <div class="highlight-item">
+
+                        <span class="highlight-dot hr-dot"></span>
+
+                        <p>
+                            HR records are being kept up to date.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 UPCOMING SCHEDULE
+            ================================================== -->
+
+            <article class="info-card schedule-card">
+
+                <div class="info-card-header">
+
+                    <div class="info-card-icon schedule-icon">
+                        <i class="bi bi-calendar3"></i>
+                    </div>
+
+                    <div>
+
+                        <span class="info-label">
+                            UPCOMING SCHEDULE
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="schedule-list">
+
+
+                    <!-- 15 AUG -->
+                    <div class="schedule-item">
+
+                        <div class="schedule-date">
+
+                            <strong>15</strong>
+                            <span>AUG</span>
+
+                        </div>
+
+
+                        <div class="schedule-details">
+
+                            <h3>Team Meeting</h3>
+
+                            <p>
+                                Friday · 11:00 AM
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- 18 AUG -->
+                    <div class="schedule-item">
+
+                        <div class="schedule-date">
+
+                            <strong>18</strong>
+                            <span>AUG</span>
+
+                        </div>
+
+
+                        <div class="schedule-details">
+
+                            <h3>Weekly Review</h3>
+
+                            <p>
+                                Monday · 10:00 AM
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- 20 AUG -->
+                    <div class="schedule-item">
+
+                        <div class="schedule-date">
+
+                            <strong>20</strong>
+                            <span>AUG</span>
+
+                        </div>
+
+
+                        <div class="schedule-details">
+
+                            <h3>Team Training</h3>
+
+                            <p>
+                                Wednesday · 2:00 PM
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 ADMIN NOTES
+            ================================================== -->
+
+            <article class="info-card notes-card">
+
+                <div class="info-card-header">
+
+                    <div class="info-card-icon notes-icon">
+                        <i class="bi bi-geo-alt-fill"></i>
+                    </div>
+
+                    <div>
+
+                        <span class="info-label">
+                            ADMIN NOTES
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="notes-list">
+
+
+                    <div class="note-item">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        <p>
+                            Review pending leave requests.
+                        </p>
+
+                    </div>
+
+
+                    <div class="note-item">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        <p>
+                            Keep employee task status updated.
+                        </p>
+
+                    </div>
+
+
+                    <div class="note-item">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        <p>
+                            Review weekly team activity.
+                        </p>
+
+                    </div>
+
+
+                    <div class="note-item">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        <p>
+                            Check newly submitted reports.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer class="dashboard-footer">
+
+            <span>© 2026 SmartDesk</span>
+
+            <span class="footer-separator">•</span>
+
+            <span>
+                Employee Management &amp; Productivity System
+            </span>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<!-- Dashboard JavaScript -->
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SmartDesk | Login</title>
+
+    <!-- Google Font -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Login CSS -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/login.css') }}">
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- ======================
+            HEADER
+    ======================= -->
+
+    <header>
+
+        <div class="logo">
+
+            <img src="{{ url_for('static', filename='img/logo3.jpg') }}"
+                 alt="logo">
+
+            <span>SmartDesk</span>
+
+        </div>
+
+    </header>
+
+    <!-- ======================
+            HERO
+    ======================= -->
+
+    <section class="hero">
+
+        <h1>
+
+            Welcome to
+
+            <span>SmartDesk</span>
+
+        </h1>
+
+        <p>
+
+            Bring clarity to every workday.
+
+            SmartDesk centralizes attendance,
+
+            task delivery, daily reports,
+
+            and leave approvals for modern teams.
+
+            <br>
+
+            Built for productive, connected teams.
+
+        </p>
+
+    </section>
+
+    <!-- ======================
+        LOGIN CARD
+    ======================= -->
+
+    <section class="login-section">
+
+        <div class="login-card">
+
+            <!-- <div class="login-icon">
+
+                <i class="bi bi-shield-lock"></i>
+
+            </div> -->
+
+            <h2>
+
+                Login As
+
+            </h2>
+
+            <p class="subtitle">
+
+                Choose your account type
+
+            </p>
+
+            <!-- EMPLOYEE CARD -->
+
+            <a href="{{ url_for('employee_login') }}"
+
+               class="option-card">
+
+                <div class="option-left">
+
+                    <div class="icon employee-icon">
+
+                        <i class="bi bi-person"></i>
+
+                    </div>
+
+                    <div class="text">
+
+                        <h3>
+
+                            Employee
+
+                        </h3>
+
+                        <p>
+
+                            Access your attendance,
+
+                            tasks and reports
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="arrow">
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </div>
+
+            </a>
+
+            <!-- ADMIN CARD -->
+
+            <a href="{{ url_for('admin_login') }}"
+
+               class="option-card">
+
+                <div class="option-left">
+
+                    <div class="icon admin-icon">
+
+                        <i class="bi bi-shield-check"></i>
+
+                    </div>
+
+                    <div class="text">
+
+                        <h3>
+
+                            Admin
+
+                        </h3>
+
+                        <p>
+
+                            Manage employees,
+
+                            reports and leave approvals
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="arrow">
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </div>
+
+            </a>
+
+</body>
+
+</html>

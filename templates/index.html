@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- css -->
+     <link href = "{{ url_for('static',filename = 'css/style.css')}}" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg py-1">
+    <div class="container">
+        <img src = "{{ url_for('static', filename='img/logo3.jpg') }}" class = "icon" alt = "icon">
+    
+        <a class="navbar-brand fw-bold" href="#">
+           SmartDesk
+        </a>
+
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+            ☰
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="menu">
+
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#home">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#features">Features</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+
+            </ul>
+
+            <a href="#" class="btn login-btn ms-3">
+                Login
+            </a>
+
+        </div>
+    </div>
+</nav>
+
+<section class="hero" id="home">
+
+<div class="container">
+
+<div class="row align-items-center">
+
+<div class="col-lg-4">
+
+<div class="top-box">
+  <p class="top"> 💠All-in-one Employee Management System</p>
+</div>
+
+<h1>
+Manage Your <br> Workforce Smarter
+</h1>
+
+<p>
+SmartDesk helps you manage attendance, tasks, leave requests and generate reports - all in one secure platform.
+</p>
+
+<a href="{{ url_for('login')}}" class="btn hero-btn">
+Get Started
+</a>
+
+<!-- ======================
+                FEATURES
+            ======================= -->
+
+             <div class="features">
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-shield-check"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h4>
+
+                            Secure & Reliable
+
+                        </h4>
+
+                        <p>
+
+                            Your data is safe with us
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-lightning-charge"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h4>
+
+                            Fast & Efficient
+
+                        </h4>
+
+                        <p>
+
+                            Built for speed and performance
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-people"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h4>
+
+                            Connected Teams
+
+                        </h4>
+
+                        <p>
+
+                            Collaborate and achieve more
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+<!-- Hero image -->
+<div class="col-lg-8 text-center">
+<img src="../static/img/dashboard_mockup2.jpeg" class="img-fluid hero-image" alt="SmartDesk Dashboard">
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- Features  -->
+
+<!-- ================= FEATURES SECTION ================= -->
+
+<section class="features-section" id="features">
+
+    <div class="features-container">
+
+        <div class="section-heading">
+            <span class="section-label">FEATURES</span>
+
+            <h2>Everything you need, all in one place</h2>
+
+            <p>
+                Powerful tools to simplify your workforce management
+            </p>
+        </div>
+
+        <div class="features-grid">
+
+            <!-- Employee Management -->
+            <div class="feature-card">
+
+                <div class="feature-icon employee-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+
+                <h3>Employee Management</h3>
+
+                <p>
+                    Add, update and manage employee information seamlessly.
+                </p>
+
+            </div>
+
+
+            <!-- Attendance Tracking -->
+            <div class="feature-card">
+
+                <div class="feature-icon attendance-icon">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+
+                <h3>Attendance Tracking</h3>
+
+                <p>
+                    Track daily attendance with reports and useful insights.
+                </p>
+
+            </div>
+
+
+            <!-- Task Management -->
+            <div class="feature-card">
+
+                <div class="feature-icon task-icon">
+                    <i class="bi bi-clipboard-check"></i>
+                </div>
+
+                <h3>Task Management</h3>
+
+                <p>
+                    Assign tasks, set deadlines and monitor progress easily.
+                </p>
+
+            </div>
+
+
+            <!-- Leave Management -->
+            <div class="feature-card">
+
+                <div class="feature-icon leave-icon">
+                    <i class="bi bi-file-earmark-text"></i>
+                </div>
+
+                <h3>Leave Management</h3>
+
+                <p>
+                    Apply, approve and manage leave requests efficiently.
+                </p>
+
+            </div>
+
+
+            <!-- Reports & Analytics -->
+            <div class="feature-card">
+
+                <div class="feature-icon reports-icon">
+                    <i class="bi bi-bar-chart-line"></i>
+                </div>
+
+                <h3>Reports &amp; Analytics</h3>
+
+                <p>
+                    Generate reports and analyze key workforce data.
+                </p>
+
+            </div>
+
+
+            <!-- Security -->
+            <div class="feature-card">
+
+                <div class="feature-icon security-icon">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+
+                <h3>Secure &amp; Reliable</h3>
+
+                <p>
+                    Keep your data safe with secure, role-based access.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- features end -->
+
+<!-- About -->
+
+<!-- ================= ABOUT SMARTDESK SECTION ================= -->
+
+<section class="about-section" id="about">
+
+    <div class="about-container">
+
+        <!-- LEFT : ILLUSTRATION -->
+        <div class="about-visual">
+
+            <div class="about-illustration">
+                <img
+                    src="{{ url_for('static', filename='img/OIP.jpg') }}"
+                    alt="SmartDesk Workforce Management">
+            </div>
+
+        </div>
+
+
+        <!-- CENTER : ABOUT CONTENT -->
+        <div class="about-content">
+
+            <span class="about-label">
+                ABOUT SMARTDESK
+            </span>
+
+            <h2>
+                One Platform. Complete
+                <br>
+                Workforce Management.
+            </h2>
+
+            <p>
+                SmartDesk helps organizations simplify their daily workforce
+                operations. From employee management and attendance tracking
+                to task assignments, leave approvals and detailed reports —
+                everything is managed in one powerful platform.
+            </p>
+
+        </div>
+
+
+        <!-- RIGHT : KEY POINTS -->
+        <div class="about-points">
+
+            <div class="about-point">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Easy to use and intuitive interface</span>
+            </div>
+
+            <div class="about-point">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Save time and increase productivity</span>
+            </div>
+
+            <div class="about-point">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Real-time updates and insights</span>
+            </div>
+
+            <div class="about-point">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Secure and role-based access</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- About ends -->
+
+<!-- HOW IT WORKS -->
+
+<section class="how-it-works">
+
+    <div class="how-container">
+
+        <div class="section-heading">
+
+            <span class="section-label">HOW IT WORKS</span>
+
+            <h2>Manage Your Workforce in Simple Steps</h2>
+
+            <p>
+                SmartDesk makes everyday workforce management simple,
+                organized and efficient.
+            </p>
+
+        </div>
+
+
+        <div class="steps-container">
+
+            <!-- Step 1 -->
+            <div class="step-card">
+
+                <div class="step-number">01</div>
+
+                <div class="step-icon">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                </div>
+
+                <h3>Login Securely</h3>
+
+                <p>
+                    Sign in through your secure employee or admin
+                    account to access SmartDesk.
+                </p>
+
+            </div>
+
+
+            <!-- Step 2 -->
+            <div class="step-card">
+
+                <div class="step-number">02</div>
+
+                <div class="step-icon">
+                    <i class="bi bi-grid-1x2"></i>
+                </div>
+
+                <h3>Manage Everything</h3>
+
+                <p>
+                    Manage employees, attendance, tasks and leave
+                    requests from one centralized platform.
+                </p>
+
+            </div>
+
+
+            <!-- Step 3 -->
+            <div class="step-card">
+
+                <div class="step-number">03</div>
+
+                <div class="step-icon">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </div>
+
+                <h3>Track & Monitor</h3>
+
+                <p>
+                    Monitor attendance, task progress and workforce
+                    activities with real-time updates.
+                </p>
+
+            </div>
+
+
+            <!-- Step 4 -->
+            <div class="step-card">
+
+                <div class="step-number">04</div>
+
+                <div class="step-icon">
+                    <i class="bi bi-bar-chart-line"></i>
+                </div>
+
+                <h3>Analyze & Improve</h3>
+
+                <p>
+                    Generate reports and use workforce insights
+                    to make better decisions.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- how it works ends -->
+
+<!-- ================= CONTACT US ================= -->
+<section class="contact-section" id="contact">
+
+    <div class="contact-container">
+
+        <div class="contact-heading">
+            <span>CONTACT US</span>
+            <h2>We're Here to Help</h2>
+            <p>
+                Have a question or need assistance?
+                Send us a message and we'll get back to you.
+            </p>
+        </div>
+
+        <form class="contact-form">
+
+            <div class="contact-row">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+            </div>
+
+            <textarea placeholder="Your Message" rows="4" required></textarea>
+
+            <button type="submit">Send Message</button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<!-- quick links -->
+
+<footer class="dashboard-footer">
+
+    <div class="footer-socials">
+
+        <a href="#" aria-label="Twitter">
+            <i class="bi bi-twitter-x"></i>
+        </a>
+
+        <a href="#" aria-label="Facebook">
+            <i class="bi bi-facebook"></i>
+        </a>
+
+        <a href="#" aria-label="Instagram">
+            <i class="bi bi-instagram"></i>
+        </a>
+
+        <a href="#" aria-label="LinkedIn">
+            <i class="bi bi-linkedin"></i>
+        </a>
+
+    </div>
+
+    <hr>
+
+    <div class="footer-bottom">
+
+        <span>
+            © 2026 SmartDesk
+        </span>
+
+        <span class="footer-separator">
+            •
+        </span>
+
+        <span>
+            Employee Management System | Developed by Sanskruti Katke
+        </span>
+
+    </div>
+
+</footer>
+<!-- quick links ends -->
+
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+   <!-- js -->
+   <script src="{{ url_for('static', filename='js/style.js')}}"></script>
+</body>
+</html>

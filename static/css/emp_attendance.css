@@ -1,0 +1,699 @@
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+
+    display: flex;
+    flex-direction: column;
+
+
+    width:270px;
+    height:100vh;
+
+    background:linear-gradient(180deg,#1457c9 0%,#0751c7 100%);
+
+    overflow:hidden;
+
+    z-index:1000;
+
+    box-shadow:4px 0 20px rgba(15,23,42,.08);
+}
+
+.menu{
+    flex:1;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+
+.sidebar-illustration{
+   flex-shrink: 0;
+   display: flex;
+   justify-content: center;
+   padding: 5px 20px 15px;
+}
+
+.sidebar-illustration img{
+    width:160px;
+    height:auto;
+    display:block;
+}
+
+
+/* Logo */
+
+.logo{
+    height:120px;
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    padding:0 35px;
+
+    border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.logo img{
+    width:44px;
+    height:44px;
+
+    object-fit:contain;
+
+    border-radius:7px;
+}
+
+.logo h3{
+    margin:0;
+
+    color:#fff;
+
+    font-size:25px;
+    font-weight:700;
+
+    white-space:nowrap;
+}
+
+
+/* Menu */
+
+.menu{
+    list-style:none;
+
+    padding:28px 18px 0;
+    margin:0;
+}
+
+.menu li{
+    margin-bottom:10px;
+}
+
+.menu li a{
+    height:58px;
+
+    display:flex;
+    align-items:center;
+
+    gap:18px;
+
+    padding:0 22px;
+
+    border-radius:16px;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    font-size:16px;
+    font-weight:500;
+
+    transition:.25s ease;
+}
+
+.menu li a i{
+    width:24px;
+
+    font-size:21px;
+
+    text-align:center;
+}
+
+.menu li a:hover{
+    background:rgba(255,255,255,.14);
+}
+
+.menu li.active a{
+    background:#fff;
+    color:#1760d4;
+
+    font-weight:700;
+
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+}
+
+
+/* ===========================
+   MAIN CONTENT
+=========================== */
+
+.main-content{
+    margin-left:280px;
+    padding:30px;
+    min-height:100vh;
+    background:#f4f7fc;
+}
+
+/* ===========================
+   TOPBAR
+=========================== */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.topbar h2{
+    font-size:30px;
+    font-weight:700;
+    color:#1e293b;
+    margin-bottom:5px;
+}
+
+.topbar p{
+    color:#64748b;
+    margin:0;
+}
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.profile img{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid white;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.profile h6{
+    margin:0;
+    font-weight:700;
+}
+
+.profile small{
+    color:#64748b;
+}
+
+/* ===========================
+   PAGE HEADER
+=========================== */
+
+.page-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:white;
+    padding:25px;
+    border-radius:18px;
+
+    margin-bottom:25px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+
+}
+
+.page-header h3{
+
+    margin:0;
+    color:#1e293b;
+    font-size:24px;
+    font-weight:700;
+
+}
+
+.page-header p{
+
+    margin-top:6px;
+    color:#64748b;
+
+}
+
+.filter-box{
+
+    width:220px;
+
+}
+
+.filter-box .form-select{
+
+    border-radius:10px;
+    height:45px;
+
+}
+
+
+/* =========================================
+   MODERN PREMIUM ATTENDANCE TABLE
+========================================= */
+
+.table-box {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px;
+    margin-top: 32px;
+
+    border: 1px solid #e6edf7;
+    box-shadow: 0 12px 35px rgba(30, 58, 138, 0.08);
+}
+
+
+/* ---------- TOP SECTION ---------- */
+
+.table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 24px;
+}
+
+.table-header h4 {
+    margin: 0;
+
+    font-size: 25px;
+    font-weight: 600;
+    color: #172554;
+}
+
+
+/* Record counter */
+
+.record-count {
+    padding: 9px 17px;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    border: 1px solid #dbeafe;
+    border-radius: 30px;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   TABLE CONTAINER
+========================================= */
+
+.table-responsive {
+    overflow-x: auto;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+
+    background: #ffffff;
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.table-box .table {
+    width: 100%;
+    margin: 0;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    font-size: 15px;
+}
+
+
+/* ---------- TABLE HEAD ---------- */
+
+.table-box .table thead {
+    background: #f1f5ff;
+}
+
+.table-box .table thead th {
+    padding: 18px 20px;
+
+    color: #334155;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    border: none;
+    border-bottom: 1px solid #dbe5f3;
+
+    white-space: nowrap;
+}
+
+
+/* ---------- TABLE BODY ---------- */
+
+.table-box .table tbody td {
+    padding: 20px;
+
+    color: #334155;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    border: none;
+    border-bottom: 1px solid #edf2f7;
+
+    background: #ffffff;
+
+    vertical-align: middle;
+}
+
+
+/* Date */
+
+.table-box .table tbody td:first-child {
+    color: #172554;
+    font-weight: 600;
+}
+
+
+/* Last row */
+
+.table-box .table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================
+   ROW HOVER
+========================================= */
+
+.table-box .table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table-box .table tbody tr:hover td {
+    background: #f8fbff;
+}
+
+
+/* =========================================
+   PRESENT STATUS
+========================================= */
+
+.status-present {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 92px;
+    padding: 8px 16px;
+
+    background: #ecfdf3;
+    color: #15803d;
+
+    border: 1px solid #bbf7d0;
+    border-radius: 30px;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   CHECK-IN / CHECK-OUT VALUES
+========================================= */
+
+.table-box .table tbody td:nth-child(2),
+.table-box .table tbody td:nth-child(3) {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+
+/* Working hours */
+
+.table-box .table tbody td:nth-child(4) {
+    color: #475569;
+    font-weight: 600;
+}
+
+
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#edf2f7;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#2563eb;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#1d4ed8;
+
+}
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:992px){
+
+    .main-content{
+
+        margin-left:0;
+
+        padding:20px;
+
+    }
+
+    .topbar{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+    .page-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+    .filter-box{
+
+        width:100%;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .profile img{
+
+        width:45px;
+
+        height:45px;
+
+    }
+
+    .table{
+
+        min-width:750px;
+
+    }
+
+}
+
+/* attendance button */
+
+/* ================================
+   PREMIUM ATTENDANCE BUTTON
+================================ */
+
+.mark-attendance-btn {
+    min-width: 150px;
+    height: 50px;
+    padding: 0 28px;
+
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: #ffffff !important;
+
+    border: none;
+    border-radius: 12px;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 16px rgba(37, 99, 235, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+
+/* Hover */
+
+.mark-attendance-btn:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
+    color: #ffffff !important;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 24px rgba(37, 99, 235, 0.35);
+}
+
+
+/* Click */
+
+.mark-attendance-btn:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, 0.25);
+}
+
+
+/* Focus */
+
+.mark-attendance-btn:focus {
+    outline: none;
+    color: #ffffff !important;
+}
+
+.mark--attendance-btn:disabled{
+    background : #16a34a;
+    cursor : not-allowed;
+    transform : none;
+}
+
+.attendance-done{
+    background : #16a34a;
+    color : #fff;
+    padding : 12px 22px;
+    border-radius : 10px;
+    display : inline-block;
+    font-weight : 600;
+}
+
+/* ===== Common Profile ===== */
+
+/* .profile-box{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    background:#fff;
+    padding:10px 20px;
+    border-radius:50px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    width:max-content;
+}
+
+.profile-box img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    border:3px solid #4f46e5;
+    object-fit:cover;
+}
+
+.profile-info h6{
+    margin:0;
+    font-size:18px;
+    font-weight:600;
+}
+
+.profile-info small{
+    color:#666;
+    font-size:14px;
+} */
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    margin-left: auto;
+    padding: 10px 24px 10px 10px;
+
+    min-width: 205px;
+    min-height: 70px;
+
+    background: #ffffff;
+    border: 1.5px solid #dbe5ff;
+    border-radius: 50px;
+
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.10);
+
+    transition: all 0.25s ease;
+}
+
+.profile:hover {
+    border-color: #b8caff;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.16);
+    transform: translateY(-1px);
+}
+
+.profile img {
+    width: 54px;
+    height: 54px;
+
+    border-radius: 50%;
+    object-fit: cover;
+
+    border: 2.5px solid #2563eb;
+    background: #f4f7ff;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.25;
+}
+
+.profile-info h6 {
+    margin: 0 0 5px;
+
+    font-size: 17px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.profile-info small {
+    margin: 0;
+
+    font-size: 13px;
+    font-weight: 400;
+    color: #64748b;
+}

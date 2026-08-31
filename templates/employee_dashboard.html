@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Dashboard | SmartDesk</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/emp_dashboard.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <img src="{{ url_for('static', filename='img/logo3.jpg') }}"
+                 alt="SmartDesk Logo">
+
+            <h3>SmartDesk</h3>
+
+        </div>
+
+
+        <ul class="menu">
+
+            <li class="active">
+                <a href="{{ url_for('employee_dashboard') }}">
+                    <i class="bi bi-grid-fill"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('employee_attendance') }}">
+                    <i class="bi bi-calendar-check-fill"></i>
+                    <span>Attendance</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('employee_tasks') }}">
+                    <i class="bi bi-list-task"></i>
+                    <span>Tasks</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('employee_leave') }}">
+                    <i class="bi bi-file-earmark-text-fill"></i>
+                    <span>Leave Requests</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('employee_reports') }}">
+                    <i class="bi bi-bar-chart-fill"></i>
+                    <span>Reports</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('employee_profile') }}">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('logout') }}">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOP HEADER
+        ================================================== -->
+
+        <header class="dashboard-header">
+
+            <div class="greeting">
+
+                <h1>
+                    Good Morning! <span>👋</span>
+                </h1>
+
+                <p>
+                    Welcome back! Here's your work summary.
+                </p>
+
+            </div>
+
+
+            <div class="header-actions">
+
+
+                <!-- Notification -->
+
+                <div class="notification">
+
+                    <div class="notification-icon" id="notificationBtn">
+
+                        <i class="bi bi-bell-fill"></i>
+
+                        {% if unread_notifications %}
+                        <span class="notification-badge">
+                            {{ unread_notifications }}
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="notification-dropdown"
+                         id="notificationDropdown">
+
+                        <div class="dropdown-header">
+
+                            <h6>Notifications</h6>
+
+                            <small>New</small>
+
+                        </div>
+
+
+                        <div class="notification-item unread">
+
+                            <div class="notification-item-icon">
+                                <i class="bi bi-list-task"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>New Task Assigned</strong>
+
+                                <p>Employee Dashboard UI</p>
+
+                                <small>5 min ago</small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="notification-item unread">
+
+                            <div class="notification-item-icon">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>Leave Approved</strong>
+
+                                <p>Your Casual Leave has been approved</p>
+
+                                <small>1 hour ago</small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="notification-item">
+
+                            <div class="notification-item-icon">
+                                <i class="bi bi-file-earmark-text"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>Report Reviewed</strong>
+
+                                <p>Your daily report was reviewed</p>
+
+                                <small>Yesterday</small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Profile -->
+
+                <div class="profile-box">
+
+    <img src="{{  url_for('static', filename='img/user19.jpg') }}"
+         alt="Profile">
+
+    <div>
+
+        <h6>{{ employee.name }}</h6>
+
+        <small>{{ employee.employee_id }}</small>
+
+    </div>
+
+</div>
+
+            </div>
+
+        </header>
+
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show mb-3" role="alert">
+                    {{ message }}
+
+                        <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+
+
+        <!-- =================================================
+             STAT CARDS
+        ================================================== -->
+
+        <section class="dashboard-stats">
+
+
+            <!-- Present Today -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon present-icon">
+                    <i class="bi bi-check-lg"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <p>Present Today</p>
+
+                    <!-- <h2>
+                        {% if attendance.status == 'Present' %}
+                            1
+                        {% else %}
+                            0
+                        {% endif %}
+                    </h2> -->
+
+                    <span>Checked in</span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Pending Tasks -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon task-stat-icon">
+                    <i class="bi bi-list-task"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <p>Pending Tasks</p>
+
+                    <h2>
+                        {{ pending_tasks }}
+                    </h2>
+
+                    <span>Tasks pending</span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Leave Requests -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon leave-stat-icon">
+                    <i class="bi bi-briefcase-fill"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <p>Leave Requests</p>
+
+                    <h2>
+                        {{ pending_leave }}
+                    </h2>
+
+                    <span>Request pending</span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Reports -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon report-stat-icon">
+                    <i class="bi bi-file-earmark-text-fill"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <p>Reports Submitted</p>
+
+                    <h2>
+                        {{ reports_count }}
+                    </h2>
+
+                    <span>This month</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MIDDLE ROW
+        ================================================== -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- =================================================
+                 TODAY'S TASKS
+            ================================================== -->
+
+            <div class="dashboard-panel tasks-panel">
+
+                <div class="panel-header">
+
+                    <h3>Today's Tasks</h3>
+
+                    <a href="{{ url_for('employee_tasks') }}">
+                        View All
+                    </a>
+
+                </div>
+
+
+             <div class="task-list">
+
+    {% if today_tasks %}
+
+        {% for task in today_tasks %}
+
+        <div class="dashboard-task">
+
+            <div class="task-check">
+                <i class="bi bi-circle"></i>
+            </div>
+
+            <div class="task-info">
+
+                <h4>
+                    {{ task.title }}
+                </h4>
+
+                <p>
+                    Due Today
+                </p>
+
+            </div>
+
+            {% if task.status == "Completed" %}
+
+                <span class="task-status status-completed">
+                    Completed
+                </span>
+
+            {% elif task.status == "In Progress" %}
+
+                <span class="task-status status-progress">
+                    In Progress
+                </span>
+
+            {% else %}
+
+                <span class="task-status status-pending">
+                    {{ task.status }}
+                </span>
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="text-center text-muted py-4">
+            No tasks due today.
+        </div>
+
+    {% endif %}
+
+</div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TODAY'S ATTENDANCE
+            ================================================== -->
+
+            <div class="dashboard-panel attendance-panel">
+
+                <div class="panel-header">
+
+                    <h3>Today's Attendance</h3>
+
+                    <span class="attendance-status">
+                        {{ attendance.status if attendance.status else "Present" }}
+                    </span>
+
+                </div>
+
+
+                <div class="attendance-info">
+
+
+                    <div class="attendance-item">
+
+                        <div class="attendance-item-icon">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+
+                        <span>Check In</span>
+
+                        <strong>
+                            {{ attendance.check_in if attendance.check_in else "-- : --" }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="attendance-item">
+
+                        <div class="attendance-item-icon">
+                            <i class="bi bi-calendar2-check"></i>
+                        </div>
+
+                        <span>Check Out</span>
+
+                        <strong>
+                            {{ attendance.check_out if attendance.check_out else "-- : --" }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="attendance-item">
+
+                        <div class="attendance-item-icon">
+                            <i class="bi bi-stopwatch"></i>
+                        </div>
+
+                        <span>Working Hours</span>
+
+                        <strong>
+                            {{ attendance.working_hours if attendance.working_hours else "-- : --" }}
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+                <a href="{{ url_for('employee_attendance') }}"
+                   class="attendance-button">
+
+                    View Full Attendance
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             BOTTOM ROW
+        ================================================== -->
+
+        <section class="dashboard-grid bottom-grid">
+
+
+            <!-- =================================================
+                 RECENT REPORTS
+            ================================================== -->
+
+            <div class="dashboard-panel reports-panel">
+
+                <div class="panel-header">
+
+                    <h3>Recent Reports</h3>
+
+                    <a href="{{ url_for('employee_reports') }}">
+                        View All
+                    </a>
+
+                </div>
+
+
+                <div class="reports-list">
+
+    {% if recent_reports %}
+
+        {% for report in recent_reports %}
+
+        <div class="report-row">
+
+            <span class="report-date">
+
+                {{ report.submitted_on.strftime('%d %b %Y') }}
+
+            </span>
+
+            <span class="report-title">
+
+                {{ report.title if report.title else "Task Report" }}
+
+            </span>
+
+            {% if report.status == "Submitted" %}
+
+                <span class="report-badge submitted">
+                    Submitted
+                </span>
+
+            {% elif report.status == "Approved" %}
+
+                <span class="report-badge approved">
+                    Approved
+                </span>
+
+            {% elif report.status == "Under Review" %}
+
+                <span class="report-badge review">
+                    Under Review
+                </span>
+
+            {% else %}
+
+                <span class="report-badge review">
+                    {{ report.status }}
+                </span>
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="text-center text-muted py-4">
+            No reports submitted yet.
+        </div>
+
+    {% endif %}
+
+</div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MONTHLY SUMMARY
+            ================================================== -->
+
+            <div class="dashboard-panel monthly-panel">
+
+                <div class="panel-header">
+
+                    <h3>Monthly Summary</h3>
+
+                    <span class="month-select">
+                        This Month
+                        <i class="bi bi-chevron-down"></i>
+                    </span>
+
+                </div>
+
+
+                <div class="monthly-content">
+
+
+                    <!-- Donut -->
+
+                    <div class="attendance-donut">
+
+                        <div class="donut-inner">
+
+                            <strong>
+                                {{ attendance_percentage }}%
+                            </strong>
+
+                            <span>Attendance</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Summary -->
+
+                    <div class="summary-list">
+
+
+                       <div class="summary-row">
+
+    <div class="summary-icon present-summary">
+        <i class="bi bi-calendar-check-fill"></i>
+    </div>
+
+    <span>Present Days</span>
+
+    <strong>
+        {{ present_days }}
+    </strong>
+
+</div>
+
+
+<div class="summary-row">
+
+    <div class="summary-icon task-summary">
+        <i class="bi bi-check-lg"></i>
+    </div>
+
+    <span>Completed Tasks</span>
+
+    <strong>
+        {{ completed_tasks }}
+    </strong>
+
+</div>
+
+
+<div class="summary-row">
+
+    <div class="summary-icon report-summary">
+        <i class="bi bi-file-earmark-text-fill"></i>
+    </div>
+
+    <span>Reports Submitted</span>
+
+    <strong>
+        {{ monthly_reports }}
+    </strong>
+
+</div>
+
+
+<div class="summary-row">
+
+    <div class="summary-icon leave-summary">
+        <i class="bi bi-briefcase-fill"></i>
+    </div>
+
+    <span>Leaves Taken</span>
+
+    <strong>
+        {{ leaves_taken }}
+    </strong>
+
+</div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/emp_dashboard.js') }}"></script>
+
+</body>
+
+</html>
